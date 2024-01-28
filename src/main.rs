@@ -78,14 +78,11 @@ fn heapify(array: &mut [i32], idx: usize, heapsize : usize){
     let mut largest = idx;
 
     if l < heapsize && array[l] > array[idx]{
-        println!("l id {}, l val {}", l, array[l]);
         largest = l;
     }
     if r < heapsize && array[r] > array[largest]{
-        println!("r id {}, r val {}", l, array[r]);
         largest = r;
     }
-    println!("id largest {}, val largest {}",largest, array[largest]);
 
     if largest != idx {
         array.swap(idx, largest);
