@@ -102,6 +102,6 @@ pub fn heapsort(array: &mut [i32]){
         for i in (1..array.len()).rev() {
             array.swap(0,i);
             heapsize -= 1;
-            max_heap(array, heapsize);
+            heapify(array, 0, heapsize);
     }
 }
