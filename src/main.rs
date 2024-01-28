@@ -1,5 +1,7 @@
 
 
+// ---------  Insertion sort -------------
+
 fn insertion_sort(input : &Vec<i32>) -> Vec<i32>{
     let mut work_vec  =  input.clone();
     for j in 1..input.len(){
@@ -14,6 +16,7 @@ fn insertion_sort(input : &Vec<i32>) -> Vec<i32>{
     work_vec
 }
 
+// ------- Merge sort ----------------
 
 fn merge(array: &mut [i32], p: usize,q: usize,r : usize ) {
     let n1 = q - p ;
@@ -54,12 +57,57 @@ fn merge(array: &mut [i32], p: usize,q: usize,r : usize ) {
 
 fn merge_sort(array : &mut [i32], p : usize, r: usize) {
     if p < r - 1 {
-        let q = p + (r - p)/ 2;
+        let q = p + (r - p)/ 2; 
         merge_sort(array, p, q);
         merge_sort(array, q, r);
         merge(array, p, q, r);
     }
 
+}
+
+// ----- Heapsort -----------
+
+fn heapify(array: &mut [i32], idx: usize, heapsize : usize){
+    
+    let left = |idx:usize| 2*idx +1;
+    let right = |idx: usize| 2*idx +2;
+
+    let l: usize = left(idx);
+    let r: usize = right(idx);
+
+    let mut largest = idx;
+
+    if l < heapsize && array[l] > array[idx]{
+        println!("l id {}, l val {}", l, array[l]);
+        largest = l;
+    }
+    if r < heapsize && array[r] > array[largest]{
+        println!("r id {}, r val {}", l, array[r]);
+        largest = r;
+    }
+    println!("id largest {}, val largest {}",largest, array[largest]);
+
+    if largest != idx {
+        array.swap(idx, largest);
+        heapify(array, largest, heapsize);
+    }
+
+}
+
+fn max_heap(array: &mut [i32],heapsize : usize ){
+    for i in (0..array.len()/2 ).rev(){
+        heapify(array, i,heapsize);   
+    }
+}
+
+fn heapsort(array: &mut [i32]){
+    let mut heapsize = array.len();
+    max_heap(array, heapsize);
+        for i in (1..array.len()).rev() {
+            array.swap(0,i);
+            heapsize -= 1;
+            max_heap(array, heapsize);
+    }
 }
 
 
@@ -69,12 +117,16 @@ fn main() {
     // let a = insertion_sort(&some_vec);
     // println!("Is it sorted? {:?}" , a)
 
-    let mut vec = vec![3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
-    let length = vec.len();
-    merge_sort(&mut vec[..], 0, length);
+    // let mut vec = vec![3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
+    let mut vec = vec![4, 1, 3, 2, 16, 9, 10, 14, 8, 7];
+    // let length = vec.len();
+    // merge_sort(&mut vec[..], 0, length);
+    heapsort(&mut vec[..]);
+    // max_heap(&mut vec[..]);
+
+
+
+
     println!("{:?}", vec);
-
-
-
 }
 
