@@ -62,7 +62,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sortingalgortihms"
+name = "sortingalgorithms"
 version = "0.1.0"
 dependencies = [
  "rand",
